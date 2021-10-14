@@ -1,92 +1,55 @@
-import pygame, sys
-from buttons.image_button import ImageButton
-from game.tictactoe import TicTacToe 
+
+import pygame
 
 pygame.init()
 
-BG_COLOR = (28, 170, 156)
-screen = pygame.display.set_mode((800, 500))
-clock = pygame.time.Clock()
+from buttons.image_button import ImageButton
 
-start_img = pygame.image.load("assets/start_btn.png").convert_alpha()
-exit_img = pygame.image.load("assets/exit_btn.png").convert_alpha()
+#screen, x, y, image_path, scale):
 
-start_button = ImageButton(screen, 100, 200, start_img, 0.7)
-exit_button = ImageButton(screen, 450, 200, exit_img, 0.7)
+#### Create a canvas on which to display everything ####
+window = (1150, 1050)
+screen = pygame.display.set_mode(window)
+#### Create a canvas on which to display everything ####
 
-# screens below
+#### Create a surface with the same size as the window ####
+background = pygame.Surface(window)
+#### Create a surface with the same size as the window ####
 
-def game():
-    HEIGHT = 600
-    WIDTH = 600
-    screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    game1 = TicTacToe(screen)
-    game1.createBoard()
-    click = False
-    running = True
-    while running: 
-        pygame.display.set_caption("Tic Tac Toe")
-        screen = pygame.display.set_mode((WIDTH, HEIGHT))
-        screen.fill(BG_COLOR)
+#### Populate the surface with objects to be displayed ####
+pygame.draw.rect(background,(0,255,255),(20,20,40,40))
+pygame.draw.rect(background,(255,0,255),(120,120,50,50))
+#### Populate the surface with objects to be displayed ####
 
-        game1.drawBoard(click)
-        
-        game1.drawLines(WIDTH, HEIGHT)
+table = pygame.image.load("images/table.jpg").convert_alpha()
+table = pygame.transform.smoothscale(table, (1050, 1050))
 
-        click = False
-        for event in pygame.event.get():
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 1: 
-                    click = True
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    running = False
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-
-        pygame.display.update()
-        clock.tick(60)
+hit = pygame.image.load("images/hit-hand-signal.gif").convert_alpha()
+hit = pygame.transform.smoothscale(hit,(150,150))
+stand = pygame.image.load("images/stand-sign.png").convert_alpha()
+stand = pygame.transform.smoothscale(stand,(150, 150))
 
 
-def main_menu():
-    click = False
-    run = True
-    WIDTH = 800
-    HEIGHT = 500
-    while run: 
 
-        pygame.display.set_caption("Duality Game")
 
-        screen = pygame.display.set_mode((WIDTH, HEIGHT))
-        
-        screen.fill(BG_COLOR)
+#### Blit the surface onto the canvas ####
+screen.blit(background,(0,0))
+#
+screen.blit(table,(45,0))
+screen.blit(hit,(80,650))
+screen.blit(stand,(900,650))
+image_button1 = ImageButton(screen, 500, 500, "cards/2_clover.png", 0.45)
 
-        pos = pygame.mouse.get_pos()
-        print(pos)
-        start_button.draw()
-        exit_button.draw()
+#### Blit the surface onto the canvas ####
 
-        if start_button.collides(pos):
-            if click:
-                game()
-        
-        if exit_button.collides(pos):
-            if click:
-                pygame.quit()
-                sys.exit()
-
-        click = False
-        for event in pygame.event.get():
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 1: 
-                    click = True
-
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-
-        pygame.display.update()
-        clock.tick(60)
-
-main_menu()
+#### Update the the display and wait ####
+pygame.display.flip()
+done = False
+while not done:
+    image_button1.draw()
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            done = True
+#### Update the the display and wait ####
+    pygame.display.update()
+pygame.quit()
