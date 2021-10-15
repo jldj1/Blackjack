@@ -3,10 +3,12 @@ from buttons.button import Button
 
 class ImageButton(Button):
 
-    def __init__(self, screen, x, y, image, scale):
+    def __init__(self, screen, x, y, image_path, scale):
+        image = pygame.image.load(image_path).convert_alpha()
+
         width = image.get_width()
         height = image.get_height()
-        super().__init__(screen, x, y, width, height) 
+        super().__init__(screen, x, y, width, height)
 
         self.image = pygame.transform.scale(image, (int(width * scale), int(height * scale)))
 
