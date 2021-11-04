@@ -1,0 +1,24 @@
+Enter your name: cb
+Enter language: (en)glish, (es)pañol, (fr)ancais en
+Dealer: [] 0
+cb en 1000 0 []
+cb please enter your bet:
+Enter your bet: 200
+Bet: 
+200
+New cash total: 
+800
+cb [('3', 'Heart', 3)] 3
+Dealer 1st card hidden 11
+cb [('3', 'Heart', 3), ('A', 'Diamond', 11)] 14
+('Dealer 1st card hidden', ('10', 'Diamond', 10)) 21
+Dealer has Blackjack!
+cb (H)it/(S)tay:
+h
+cb [('3', 'Heart', 3), ('A', 'Diamond', 1), ('Q', 'spade', 10)] 24
+cb BUSTS!
+Dealer ('Dealer 1st card hidden', ('10', 'Diamond', 10)) 21
+ 
+
+b [('A', 'Heart', 1), ('2', 'Diamond', 2), ('7', 'spade', 7), ('A', 'club', 1)] 11
+#1 Ace should == 1, other Ace should == 11
