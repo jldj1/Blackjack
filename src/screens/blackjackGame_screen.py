@@ -39,7 +39,7 @@ class BlackJackGame:
             pos = pygame.mouse.get_pos()
             print(pos)
             self.draw()
-            if self.chip1.collides(pos):
+            if self.button.collides(pos):
                 if self.click:
                     print("BUTTON CLICKED")
                     self.bet1 += 100
