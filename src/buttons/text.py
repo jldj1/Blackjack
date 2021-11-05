@@ -1,7 +1,7 @@
 import pygame
 
 class Text:
-    def __init__(self, screen, x, y, text="", font_size=40):
+    def __init__(self, screen, x, y, text="", font_size=25):
         self.font = pygame.font.SysFont('leelawadee', font_size)
         self.screen = screen
         self.text = text

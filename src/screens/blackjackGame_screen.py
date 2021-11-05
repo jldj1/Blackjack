@@ -23,15 +23,15 @@ class BlackJackGame:
         self.bet1 = 0
         # self, screen, x, y, width, height, text="", color=(DARK_GREY)
         #chip buttons
-        self.chip500 = ImageButton(self.screen, self.width - 300, self.height/2 + 100, 'blackjackGame/assets/Chips/chip500.png', 0.75)
-        self.chip100 = ImageButton(self.screen, self.width - 300, self.height/2 + 200, 'blackjackGame/assets/Chips/chip100.png', 0.75)
-        self.chip50 = ImageButton(self.screen, self.width - 200, self.height/2 + 100, 'blackjackGame/assets/Chips/chip50.png', 0.75)
-        self.chip25 = ImageButton(self.screen, self.width - 200, self.height/2 + 200, 'blackjackGame/assets/Chips/chip25.png', 0.75)
-        self.chip5 = ImageButton(self.screen, self.width - 100, self.height/2 + 100, 'blackjackGame/assets/Chips/chip5.png', 0.75)
-        self.chip1 = ImageButton(self.screen, self.width - 100, self.height/2 + 200, 'blackjackGame/assets/Chips/chip1.png', 0.75)
+        self.chip500 = ImageButton(self.screen,  670, 415, 'blackjackGame/assets/Chips/chip500.png', 0.45)
+        self.chip100 = ImageButton(self.screen, 740, 415, 'blackjackGame/assets/Chips/chip100.png', 0.45)
+        self.chip50 = ImageButton(self.screen, 670, 465, 'blackjackGame/assets/Chips/chip50.png', 0.45)
+        self.chip25 = ImageButton(self.screen,  740, 465, 'blackjackGame/assets/Chips/chip25.png', 0.45)
+        self.chip5 = ImageButton(self.screen,  670, 510, 'blackjackGame/assets/Chips/chip5.png', 0.45)
+        self.chip1 = ImageButton(self.screen,  740, 510, 'blackjackGame/assets/Chips/chip1.png', 0.45)
 
         #bank and bet area
-        self.current_bet1 = Text(self.screen, self.width - 200, self.height/2 + 60, f"Bank: ${self.bet1}")
+        self.current_bet1 = Text(self.screen, self.width - 150, self.height/2 + 100, f"Bank: ${self.bet1}")
         self.clock = pygame.time.Clock()
 
 
@@ -41,8 +41,8 @@ class BlackJackGame:
         # screen.fill always in beginning of draw func
         self.screen.blit(self.bj_table, (0, 0))
         #bank/bet area background
-        pygame.draw.rect(self.screen, (65, 86, 127), pygame.Rect(self.width/2 + 100, self.height/2 + 100, 300, 200))
-        pygame.draw.rect(self.screen, (65, 86, 127), pygame.Rect(self.width/2 + 190, self.height/2 + 50, 210, 50))
+        pygame.draw.rect(self.screen, (65, 86, 127), pygame.Rect(640, 390, 300, 200))
+        #pygame.draw.rect(self.screen, (65, 86, 127), pygame.Rect(self.width/2 + 190, self.height/2 + 50, 210, 50))
         self.chip500.draw()
         self.chip100.draw()
         self.chip50.draw()
@@ -67,6 +67,38 @@ class BlackJackGame:
                 if self.click:
                     print("BUTTON CLICKED")
                     self.bet1 += 500
+                    #self.blackjack_game.setbet("chris", 200)
+                    self.current_bet1.setText(f"Current bet: {self.bet1}")
+
+            elif self.chip100.collides(pos):
+                if self.click:
+                    print("BUTTON CLICKED")
+                    self.bet1 += 100
+                    #self.blackjack_game.setbet("chris", 200)
+                    self.current_bet1.setText(f"Current bet: {self.bet1}")
+
+            elif self.chip50.collides(pos):
+                if self.click:
+                    print("BUTTON CLICKED")
+                    self.bet1 += 50
+                    #self.blackjack_game.setbet("chris", 200)
+                    self.current_bet1.setText(f"Current bet: {self.bet1}")
+            elif self.chip25.collides(pos):
+                if self.click:
+                    print("BUTTON CLICKED")
+                    self.bet1 += 25
+                    #self.blackjack_game.setbet("chris", 200)
+                    self.current_bet1.setText(f"Current bet: {self.bet1}")
+            elif self.chip1.collides(pos):
+                if self.click:
+                    print("BUTTON CLICKED")
+                    self.bet1 += 1
+                    #self.blackjack_game.setbet("chris", 200)
+                    self.current_bet1.setText(f"Current bet: {self.bet1}")
+            if self.chip5.collides(pos):
+                if self.click:
+                    print("BUTTON CLICKED")
+                    self.bet1 += 5
                     #self.blackjack_game.setbet("chris", 200)
                     self.current_bet1.setText(f"Current bet: {self.bet1}")
 
