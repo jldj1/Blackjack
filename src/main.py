@@ -1,7 +1,7 @@
 import pygame, os
 pygame.init()
 # init pygame before importing other dependencies
-
+# Jessie was here
 from screens.main_screen import MainScreen
 from blackjackGame.game import BlackjackGame
 
