@@ -17,10 +17,6 @@ while game1.total_players < 1:
 #start new game
 game1.startGame()
 
-def setPlayerBet(player):
-  #change text input to receive button input
-  bet = int(input("Enter your bet: "))
-  player.setBet(bet)
 
 #begin main game loop here
 while True:
@@ -28,9 +24,9 @@ while True:
   #ante - in run loop
   for name in game1.storage.keys():
       print(name, 'please enter your bet:')
-      #bet = int(input())
+      bet = int(input())
 
-      setPlayerBet(game1.storage[name])
+      #setPlayerBet(game1.storage[name])
       
       print('Bet: ')
       print(game1.storage[name].getBet())
@@ -174,4 +170,5 @@ while True:
   else:
     break
 
+#launch exit screen
 print('Thank you for playing!')

@@ -1,5 +1,5 @@
-from player import Player
-from dealer import Dealer
+from blackjackGame.player import Player
+from blackjackGame.dealer import Dealer
 
 #class for game
 class BlackjackGame:
@@ -32,4 +32,4 @@ class BlackjackGame:
                   player_object.getHand(), player_object.setbj(0))
 
     def run(self):
-     pass
+        pass

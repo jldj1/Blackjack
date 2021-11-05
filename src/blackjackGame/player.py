@@ -1,4 +1,4 @@
-from deck import Deck
+from blackjackGame.deck import Deck
 from itertools import cycle
 
 #class for new player

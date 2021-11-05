@@ -2,6 +2,7 @@ import pygame
 from buttons.button import Button
 from buttons.input_box import InputBox
 from network.users.users import UserModel
+from blackjackGame.game import BlackjackGame
 
 padding = 10
 
@@ -47,3 +48,7 @@ class LoginForm:
             return {}
         else:
             return response
+
+        #replace 'en' with drop down menu for language selection
+        game1 = BlackjackGame()
+        game1.addPlayer(username, 'en', 1000, 0, [], 0, 0)

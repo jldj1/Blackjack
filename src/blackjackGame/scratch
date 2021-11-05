@@ -151,3 +151,10 @@ while True:
     break
 
 print('Thank you for playing!')
+
+
+# from main.py line 20: set player bet
+def setPlayerBet(player):
+  #change text input to receive button input
+  bet = int(input("Enter your bet: "))
+  player.setBet(bet)
