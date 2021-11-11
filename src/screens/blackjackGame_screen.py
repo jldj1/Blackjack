@@ -2,6 +2,9 @@ import pygame, sys
 from buttons.button import Button
 from buttons.image_button import ImageButton
 from buttons.text import Text
+from components.card import CardComponent
+from components.deckComponent import DeckComponent
+from components.hand import HandComponent
 
 BG_COLOR = (30, 30, 30)
 BLACK_COLOR = (0, 0, 0)
@@ -10,11 +13,17 @@ class BlackJackGame:
     def __init__(self):
         self.width = 800
         self.height = 600
-        
         self.setup_screen()
 
+
+
+        self.deck = DeckComponent(self.screen, 370, 370)
+        self.hand1 = HandComponent(self.screen, 200, 200)
+        self.dealer_hand = HandComponent(self.screen, 200, 500)
         self.click = False
         self.running = True
+
+        self.players = [self.hand1, self.dealer_hand]
 
         #blackjack table image
         self.bj_table = pygame.image.load('blackjackGame/assets/blackJackTable.png')
@@ -34,7 +43,7 @@ class BlackJackGame:
         self.current_bet1 = Text(self.screen, self.width - 150, self.height/2 + 100, f"Bank: ${self.bet1}")
         self.clock = pygame.time.Clock()
 
-
+        self.button1 = Button(self.screen, 300, 100, 200, 50, "Deal")
 
     def draw(self):
         self.screen.fill(BG_COLOR)
@@ -50,7 +59,12 @@ class BlackJackGame:
         self.chip5.draw()
         self.chip1.draw()
         self.current_bet1.draw()
-
+        self.deck.draw()
+        #self.hand1.draw()
+        self.button1.draw()
+        #self.dealer_hand.draw()
+        for hand in self.players:
+            hand.draw()
         # display.update() always in end of draw func
         pygame.display.update()
 
@@ -61,46 +75,49 @@ class BlackJackGame:
     def run(self):
         while self.running: 
             pos = pygame.mouse.get_pos()
-            print(pos)
+            #print(pos)
             self.draw()
             if self.chip500.collides(pos):
                 if self.click:
                     print("BUTTON CLICKED")
                     self.bet1 += 500
-                    #self.blackjack_game.setbet("chris", 200)
                     self.current_bet1.setText(f"Current bet: {self.bet1}")
-
             elif self.chip100.collides(pos):
                 if self.click:
                     print("BUTTON CLICKED")
                     self.bet1 += 100
-                    #self.blackjack_game.setbet("chris", 200)
                     self.current_bet1.setText(f"Current bet: {self.bet1}")
-
             elif self.chip50.collides(pos):
                 if self.click:
                     print("BUTTON CLICKED")
                     self.bet1 += 50
-                    #self.blackjack_game.setbet("chris", 200)
                     self.current_bet1.setText(f"Current bet: {self.bet1}")
             elif self.chip25.collides(pos):
                 if self.click:
                     print("BUTTON CLICKED")
                     self.bet1 += 25
-                    #self.blackjack_game.setbet("chris", 200)
                     self.current_bet1.setText(f"Current bet: {self.bet1}")
             elif self.chip1.collides(pos):
                 if self.click:
                     print("BUTTON CLICKED")
                     self.bet1 += 1
-                    #self.blackjack_game.setbet("chris", 200)
                     self.current_bet1.setText(f"Current bet: {self.bet1}")
             if self.chip5.collides(pos):
                 if self.click:
                     print("BUTTON CLICKED")
                     self.bet1 += 5
-                    #self.blackjack_game.setbet("chris", 200)
                     self.current_bet1.setText(f"Current bet: {self.bet1}")
+
+
+            if self.button1.collides(pos) and self.click:
+                temp_card = self.deck.deal()
+                #%
+                index = self.deck.total_cards % len(self.players)
+                print(index)
+
+                self.players[index].addCard(temp_card.suit, temp_card.name)
+                #self.hand1.addCard(temp_card.suit, temp_card.pip)
+
 
             self.click = False
             for event in pygame.event.get():

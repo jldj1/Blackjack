@@ -37,7 +37,7 @@ class Deck():
       for card in cards:
         deck.append((card, suit, pips[card]))
 
-    def deal():
+    def deal(self):
         card = choice(Deck.deck)
         Deck.deck.remove(card)
         return card
