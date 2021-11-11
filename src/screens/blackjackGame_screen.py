@@ -10,6 +10,7 @@ class BlackJackGame:
     def __init__(self):
         self.width = 800
         self.height = 600
+        self.can_bet = True
         
         self.setup_screen()
 
@@ -61,9 +62,9 @@ class BlackJackGame:
     def run(self):
         while self.running: 
             pos = pygame.mouse.get_pos()
-            print(pos)
+            #print(pos)
             self.draw()
-            if self.chip500.collides(pos):
+            if self.chip500.collides(pos) and self.can_bet == True:
                 if self.click:
                     print("BUTTON CLICKED")
                     self.bet1 += 500

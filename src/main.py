@@ -18,10 +18,10 @@ game1 = BlackjackGame()
 game1.addDealer([], 0)
 
 #add players - stay in main
-while game1.total_players < 1:
-    new_player = input('Enter your name: ')
-    lang = input('Enter language: (en)glish, (es)pañol, (fr)ancais ')
-    game1.addPlayer(new_player, lang, 1000, 0, [], 0, 0)
+# while game1.total_players < 1:
+#     new_player = input('Enter your name: ')
+#     lang = input('Enter language: (en)glish, (es)pañol, (fr)ancais ')
+#     game1.addPlayer(new_player, lang, 1000, 0, [], 0, 0)
 
 #start new game
 game1.startGame()
