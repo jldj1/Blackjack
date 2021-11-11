@@ -1,46 +1,57 @@
-from blackjackGame.deck import Deck
+from deck import Deck
 
-#class for dealer
+
+# class for dealer
 class Dealer:
-    def __init__(self, hand, score):
+    def __init__(self, hand, score, take):
         self.hand = hand
         self.score = score
-    #empty list for hand   
-    #hand = []
+        self.take = take
+
+    # empty list for hand
+    # hand = []
 
     def setHand(self):
-      #self.hand = []
-      deal = Deck.deal()
-      self.hand.append(deal)
+        # self.hand = []
+        deal = Deck.deal()
+        self.hand.append(deal)
 
     def card1(self):
-      return "Dealer 1st card hidden"
+        return "Dealer 1st card hidden"
+
+    def card2(self):
+        return self.hand[-1][0]
 
     def getHand(self):
-      return self.hand
+        return self.hand
 
     def addScore(self):
-      self.score += self.hand[-1][2]
+        self.score += self.hand[-1][2]
 
-      #Ace 11/1 conditional
-      if self.score > 21:
-        for card in range(len(self.hand)):
-          if self.hand[card][2] == 11:
-            tempList = list(self.hand[card])
-            print(tempList)
-            tempList[2] = 1
-            self.hand[card] = tuple(tempList)
-            self.score -= 10
+        # Ace 11/1 conditional
+        if self.score > 21:
+            for card in range(len(self.hand)):
+                if self.hand[card][2] == 11:
+                    tempList = list(self.hand[card])
+                    print(tempList)
+                    tempList[2] = 1
+                    self.hand[card] = tuple(tempList)
+                    self.score -= 10
 
+                if self.score < 21:
+                    break
 
-          if self.score < 21:
-            break
-    
     def resetScore(self):
-      self.score = 0
+        self.score = 0
 
     def setScore(self):
         self.score = self.score
-    
+
     def getScore(self):
         return self.score
+
+    def setTake(self, take):
+        self.take += take
+
+    def getTake(self):
+        return self.take
