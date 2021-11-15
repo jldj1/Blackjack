@@ -1,6 +1,5 @@
-from player import Player
-from dealer import Dealer
-
+from blackjackGame.player import Player
+from blackjackGame.dealer import Dealer
 
 # class for game
 class BlackjackGame:

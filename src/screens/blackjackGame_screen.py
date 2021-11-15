@@ -13,6 +13,7 @@ class BlackJackGame:
     def __init__(self):
         self.width = 800
         self.height = 600
+        self.can_bet = True
         self.setup_screen()
 
 
