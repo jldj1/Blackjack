@@ -9,15 +9,22 @@ from components.hand import HandComponent
 BG_COLOR = (30, 30, 30)
 BLACK_COLOR = (0, 0, 0)
 
+def dealCards(deck, hand, n):
+    for i in range(n):
+        temp_card = deck.deal()
+
+        hand.addCard(temp_card.suit, temp_card.name)
+
+
 class BlackJackGame:
     def __init__(self):
         self.width = 800
         self.height = 600
         self.can_bet = True
         self.setup_screen()
-
-
-
+        self.won = False
+        self.started = False
+        self.stand_check = False
         self.deck = DeckComponent(self.screen, 240, 30)
         self.hand1 = HandComponent(self.screen, 200, 500)
         self.dealer_hand = HandComponent(self.screen, 200, 200)
@@ -39,13 +46,13 @@ class BlackJackGame:
         self.chip25 = ImageButton(self.screen,  740, 465, 'blackjackGame/assets/Chips/chip25.png', 0.45)
         self.chip5 = ImageButton(self.screen,  670, 510, 'blackjackGame/assets/Chips/chip5.png', 0.45)
         self.chip1 = ImageButton(self.screen,  740, 510, 'blackjackGame/assets/Chips/chip1.png', 0.45)
-
+        self.new_hand = Button(self.screen, 300, 100, 200, 50, "New Hand")
         #bank and bet area
         self.current_bet1 = Text(self.screen, self.width - 150, self.height/2 + 100, f"Bank: ${self.bet1}")
         self.clock = pygame.time.Clock()
-
+        self.status_text = Text(self.screen, 100, 100, "")
         self.button1 = Button(self.screen, 300, 100, 200, 50, "Deal")
-
+        self.done_betting = False
         self.hit = ImageButton(self.screen, 20, 400, 'assets/imgs/hit-hand-signal.gif', 0.45)
         self.stand = ImageButton(self.screen, 20, 500, 'assets/imgs/stand-sign.png', 0.19)
 
@@ -65,10 +72,15 @@ class BlackJackGame:
         self.current_bet1.draw()
         self.deck.draw()
         #self.hand1.draw()
-        self.button1.draw()
+        if not self.done_betting:
+            self.button1.draw()
         #self.dealer_hand.draw()
         for hand in self.players:
             hand.draw()
+
+        if self.stand_check:
+            self.status_text.draw()
+            self.new_hand.draw()
 
         self.hit.draw()
         self.stand.draw()
@@ -117,14 +129,51 @@ class BlackJackGame:
 
 
             if self.button1.collides(pos) and self.click:
-                temp_card = self.deck.deal()
-                #%
-                index = self.deck.total_cards % len(self.players)
-                print(index)
+                if self.bet1 != 0:
+                    self.done_betting = True
 
-                self.players[index].addCard(temp_card.suit, temp_card.name)
-                #self.hand1.addCard(temp_card.suit, temp_card.pip)
+            if self.hit.collides(pos) and self.click:
+                dealCards(self.deck, self.players[0], 1)
 
+            if not self.stand_check and self.stand.collides(pos) and self.click:
+                self.players[1].flipCard(1)
+                self.stand_check = True
+                player_val = self.players[0].evaluateHand()
+                dealer_val = self.players[1].evaluateHand()
+                while dealer_val < 17:
+                    dealCards(self.deck, self.players[1], 1)
+                    dealer_val = self.players[1].evaluateHand()
+                if player_val > 21:
+                    player_val = -1
+                if dealer_val > 21:
+                    dealer_val = -1
+                if player_val > dealer_val:
+                    self.status_text.setText("YOU WON!")
+
+                elif player_val < dealer_val:
+                    self.status_text.setText("YOU LOST!")
+                else:
+                    self.status_text.setText("Its a tie!")
+
+            if not self.started and self.done_betting:
+
+                dealCards(self.deck, self.players[0], 2)
+                dealCards(self.deck, self.players[1], 2)
+
+                self.players[1].flipCard(1)
+                self.started = True
+                val1 = self.players[0].evaluateHand()
+                print(val1)
+
+            if self.stand_check and self.new_hand.collides(pos) and self.click:
+                self.players[0].clear()
+                self.players[1].clear()
+                self.started = False
+                self.done_betting = False
+                self.stand_check = False
+                self.bet1 = 0
+                self.current_bet1.setText(f"Current bet: {self.bet1}")
+                self.status_text.setText("")
 
             self.click = False
             for event in pygame.event.get():

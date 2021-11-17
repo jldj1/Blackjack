@@ -23,3 +23,11 @@ class HandComponent:
     def flipAll(self):
         for card in self.cards:
             card.flip()
+
+    def evaluateHand(self):
+        output = 0
+        for card in self.cards:
+            output += card.pip
+        return output
+    def clear(self):
+        self.cards = []
