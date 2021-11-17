@@ -18,9 +18,9 @@ class BlackJackGame:
 
 
 
-        self.deck = DeckComponent(self.screen, 370, 370)
-        self.hand1 = HandComponent(self.screen, 200, 200)
-        self.dealer_hand = HandComponent(self.screen, 200, 500)
+        self.deck = DeckComponent(self.screen, 240, 30)
+        self.hand1 = HandComponent(self.screen, 200, 500)
+        self.dealer_hand = HandComponent(self.screen, 200, 200)
         self.click = False
         self.running = True
 
@@ -46,6 +46,9 @@ class BlackJackGame:
 
         self.button1 = Button(self.screen, 300, 100, 200, 50, "Deal")
 
+        self.hit = ImageButton(self.screen, 20, 400, 'assets/imgs/hit-hand-signal.gif', 0.45)
+        self.stand = ImageButton(self.screen, 20, 500, 'assets/imgs/stand-sign.png', 0.19)
+
     def draw(self):
         self.screen.fill(BG_COLOR)
         # screen.fill always in beginning of draw func
@@ -66,6 +69,9 @@ class BlackJackGame:
         #self.dealer_hand.draw()
         for hand in self.players:
             hand.draw()
+
+        self.hit.draw()
+        self.stand.draw()
         # display.update() always in end of draw func
         pygame.display.update()
 
