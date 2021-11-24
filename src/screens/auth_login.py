@@ -63,7 +63,7 @@ class LoginScreen:
             self.status_label.setText(status)
 
         if "success" in self.user_object:
-            main_screen = MainScreen()
+            main_screen = MainScreen(self.user_object)
             main_screen.run()
 
         if event.type == pygame.MOUSEBUTTONDOWN:

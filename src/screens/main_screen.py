@@ -11,9 +11,9 @@ BG_COLOR = (28, 170, 156)
 
 class MainScreen:
 
-    def __init__(self):
-        self.width = 900
-        self.height = 800
+    def __init__(self, user):
+        self.width = 745
+        self.height = 500
         self.setup_screen()
 
         # objects init
@@ -22,8 +22,6 @@ class MainScreen:
         exit_button = ImageButton(self.screen, 450, 200, "assets/exit_btn.png", 0.7)
         user_text = Text(self.screen, 15, 15, "Not Logged in")
         balance_text = Text(self.screen, 15, 40, "")
-        self.login_form = LoginForm(self.screen, 100, 300, 200, 45)
-        self.register_form = RegisterForm(self.screen, 500, 300, 200, 45)
         self.components = { "start": start_button, "exit": exit_button, "user_text": user_text, "balance_text": balance_text }
 
 
@@ -31,7 +29,7 @@ class MainScreen:
         self.running = True
 
         # once user is logged in, user object will contain user information
-        self.user_object = {}
+        self.user_object = user
 
         self.clock = pygame.time.Clock()
 
@@ -40,8 +38,6 @@ class MainScreen:
 
         for component in self.components.values():
             component.draw()
-        self.register_form.draw()
-        self.login_form.draw()
         pygame.display.update()
 
     def setup_screen(self):
@@ -80,9 +76,6 @@ class MainScreen:
 
     def handle_event(self, event):
         # if not logged in yet
-        if "success" not in self.user_object:
-            self.user_object = self.login_form.handle_event(event)
-            self.register_form.handle_event(event)
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
                 self.click = True
