@@ -3,6 +3,7 @@ from buttons.button import Button
 from components.register_form import RegisterForm
 from screens.auth_login import LoginScreen
 from buttons.text import Text
+from buttons.image_button import ImageButton
 BG_COLOR = (28, 170, 156)
 
 BLACK_COLOR = (0, 0, 0)
@@ -13,6 +14,7 @@ class RegisterScreen:
         self.height = 600
         
         self.setup_screen()
+        self.register_image = ImageButton(self.screen, 100, 100, "assets/register_image.png", 0.5)
         self.login_form = RegisterForm(self.screen, 50, 300, 200, 45)
         self.email_label = Text(self.screen, 260, 303, "Enter Email")
         self.status_label = Text(self.screen, 50, 530, "", 25, (255, 0, 0))
@@ -30,11 +32,13 @@ class RegisterScreen:
         self.screen.fill(BG_COLOR)
         # screen.fill always in beggining of draw func
         self.go_back.draw()
+
         self.login_form.draw()
         self.email_label.draw()
         self.user_label.draw()
         self.password_label.draw()
         self.status_label.draw()
+        self.register_image.draw()
         # display.update() always in end of draw func
         pygame.display.update()
 

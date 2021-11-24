@@ -2,6 +2,7 @@ import pygame, sys
 from buttons.button import Button
 from components.login_form import LoginForm
 from screens.main_screen import MainScreen
+from buttons.image_button import ImageButton
 from buttons.text import Text
 BG_COLOR = (28, 170, 156)
 
@@ -16,7 +17,7 @@ class LoginScreen:
         self.login_form = LoginForm(self.screen, 50, 300, 200, 45)
         self.user_label = Text(self.screen, 260, 303, "Enter Username")
         self.status_label = Text(self.screen, 50, 470, "", 25, (255, 0, 0))
-
+        self.login_image = ImageButton(self.screen, 205, 8, "assets/login_image.png", 0.8)
         self.password_label = Text(self.screen, 260, 360, "Enter Password")
         self.click = False
         self.running = True
@@ -34,6 +35,7 @@ class LoginScreen:
         self.user_label.draw()
         self.password_label.draw()
         self.status_label.draw()
+        self.login_image.draw()
         # display.update() always in end of draw func
         pygame.display.update()
 
