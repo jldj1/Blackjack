@@ -3,23 +3,25 @@ from buttons.button import Button
 from buttons.input_box import InputBox
 from network.users.users import UserModel
 
-padding = 10
 
 # Register Form component holds three elements, 
-# 2 Input Boxes
+#  3 Boxes email, username, password
 # 1 Button
 
 class RegisterForm:
     def __init__(self, screen, x, y, w, h):
         self.screen = screen
-        self.user_box = InputBox(screen, x, y, w, h)
-        self.pass_box = InputBox(screen, x, y + h + padding, w, h)
-        self.button = Button(screen, x, y + h * 2 + padding + 10, w, h, "Register")
-        # self.logout_button = Button(screen, x, y, w, h, "Logout")
+        self.padding = h + 10
+        self.email_box = InputBox(screen,x, y, w, h)
+        self.user_box = InputBox(screen, x, y + self.padding, w, h)
+        self.pass_box = InputBox(screen, x, y + self.padding * 2, w, h)
+        self.button = Button(screen, x, y + self.padding * 3, w, h, "Register")
+        # self.logout_button = Button(screen, x, y, w, h, "Login")
 
         self.status = {}
         
     def handle_event(self, event):
+        self.email_box.handle_event(event)
         self.user_box.handle_event(event)
         self.pass_box.handle_event(event)
 
@@ -32,17 +34,20 @@ class RegisterForm:
         return self.status
 
     def draw(self):
-        # draw three elements at once
+        # draw three elements at once email, username, password
         if not self.status:
             self.button.draw()
+            self.email_box.draw()
             self.user_box.draw()
             self.pass_box.draw()
 
     def submit(self):
+        email = self.email_box.getText()
         username = self.user_box.getText()
         password = self.pass_box.getText()
-        response = UserModel.create_user(username, password)
 
+        response = UserModel.create_user(email,username, password)
+        self.email_box.setText("")
         self.user_box.setText("")
         self.pass_box.setText("")
 

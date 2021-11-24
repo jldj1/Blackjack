@@ -1,17 +1,19 @@
-import pygame, sys
+import pygame
+import sys
 from screens.lobby_screen import LobbyScreen
 
 from buttons.image_button import ImageButton
 from components.login_form import LoginForm
+from components.register_form import RegisterForm
 from buttons.text import Text
 
 BG_COLOR = (28, 170, 156)
 
-class MainScreen: 
+class MainScreen:
 
     def __init__(self):
-        self.width = 800
-        self.height = 500
+        self.width = 900
+        self.height = 800
         self.setup_screen()
 
         # objects init
@@ -21,16 +23,16 @@ class MainScreen:
         user_text = Text(self.screen, 15, 15, "Not Logged in")
         balance_text = Text(self.screen, 15, 40, "")
         self.login_form = LoginForm(self.screen, 100, 300, 200, 45)
-        
+        self.register_form = RegisterForm(self.screen, 500, 300, 200, 45)
         self.components = { "start": start_button, "exit": exit_button, "user_text": user_text, "balance_text": balance_text }
-        
+
 
         self.click = False
         self.running = True
 
         # once user is logged in, user object will contain user information
         self.user_object = {}
-        
+
         self.clock = pygame.time.Clock()
 
     def draw(self):
@@ -38,7 +40,7 @@ class MainScreen:
 
         for component in self.components.values():
             component.draw()
-
+        self.register_form.draw()
         self.login_form.draw()
         pygame.display.update()
 
@@ -47,7 +49,7 @@ class MainScreen:
         pygame.display.set_caption("Menu")
 
     def run(self):
-        while self.running: 
+        while self.running:
             pos = pygame.mouse.get_pos()
             print(pos)
 
@@ -61,7 +63,7 @@ class MainScreen:
             if self.components["start"].collides(pos):
                 if self.click:
                     LobbyScreen().run()
-                    # self.setup_screen is to reset screen dimensions and window settings 
+                    # self.setup_screen is to reset screen dimensions and window settings
                     # after the other window closes
                     self.setup_screen()
 
@@ -78,11 +80,11 @@ class MainScreen:
 
     def handle_event(self, event):
         # if not logged in yet
-        if "success" not in self.user_object: 
+        if "success" not in self.user_object:
             self.user_object = self.login_form.handle_event(event)
-        
+            self.register_form.handle_event(event)
         if event.type == pygame.MOUSEBUTTONDOWN:
-            if event.button == 1: 
+            if event.button == 1:
                 self.click = True
 
         if event.type == pygame.QUIT:

@@ -5,7 +5,7 @@ from network.users.users import UserModel
 
 padding = 10
 
-# Login Form component holds three elements, 
+# Login Form component holds two elements,
 # 2 Input Boxes
 # 1 Button
 

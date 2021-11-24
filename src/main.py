@@ -2,12 +2,12 @@ import pygame, os
 pygame.init()
 # init pygame before importing other dependencies
 # Jessie was here
-from screens.main_screen import MainScreen
+from screens.auth_screen import AuthScreen
 from blackjackGame.game import BlackjackGame
 
 def main():
-    main_screen = MainScreen()
-    main_screen.run()   
+    auth_screen = AuthScreen()
+    auth_screen.run()
 
 if __name__ == "__main__":
     main()
