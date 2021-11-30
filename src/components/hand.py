@@ -26,10 +26,21 @@ class HandComponent:
 
     def evaluateHand(self):
         output = 0
+
         for card in self.cards:
 
             output += card.pip
+        # Ace 11/1 conditional
+            if output > 21:
+                for ace in self.cards:
+                    if ace.pip == 11:
+                        ace.pip = 1
+                        output -= 10
+                    if output < 21:
+                        break
+
         return output
+
 
     def clear(self):
         self.cards = []
