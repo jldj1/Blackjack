@@ -30,7 +30,6 @@ class MainScreen:
 
         # once user is logged in, user object will contain user information
         self.user_object = user
-
         self.clock = pygame.time.Clock()
 
     def draw(self):
@@ -58,7 +57,7 @@ class MainScreen:
 
             if self.components["start"].collides(pos):
                 if self.click:
-                    LobbyScreen().run()
+                    LobbyScreen(self.user_object).run()
                     # self.setup_screen is to reset screen dimensions and window settings
                     # after the other window closes
                     self.setup_screen()

@@ -38,3 +38,12 @@ class UserModel:
             return response.json()
         except Exception:
             return {"status": "Server Error"}
+
+    @staticmethod
+    def save_user_info(username, balance):
+        try:
+            options = {"user": username, "balance": balance}
+            response = requests.post(f"{url}/auth/save_balance", data=options)
+            return response.json()
+        except Exception:
+            return {"status": "Server Error"}

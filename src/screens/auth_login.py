@@ -29,7 +29,7 @@ class LoginScreen:
 
     def draw(self):
         self.screen.fill(BG_COLOR)
-        # screen.fill always in beggining of draw func
+        # screen.fill always in beginning of draw func
         self.go_back.draw()
         self.login_form.draw()
         self.user_label.draw()

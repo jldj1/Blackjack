@@ -26,6 +26,12 @@ def login():
     password = request.form['password']
     return jsonify(storage_db.authenticate(user, password))
 
+@auth.route("/save_balance", methods=["POST"])
+def save_balance():
+    user = request.form['user']
+    balance = request.form['balance']
+    return jsonify(storage_db.update_balance(user, balance))
+
 @auth.route("/create_room", methods=["POST"])
 def create_room():
     user = request.form['user']

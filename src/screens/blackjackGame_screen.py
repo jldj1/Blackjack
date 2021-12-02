@@ -17,14 +17,16 @@ def dealCards(deck, hand, n):
 
 
 class BlackJackGame:
-    def __init__(self):
+    def __init__(self, user):
+        self.user = user
         self.width = 800
         self.height = 600
         self.setup_screen()
         self.hand1 = HandComponent(self.screen, 200, 500)
         self.dealer_hand = HandComponent(self.screen, 200, 200)
-
-        self.game = TestBlackJack(self.screen, self.hand1, self.dealer_hand)
+        self.usernamelabel = Text(self.screen, 5, 15, f"{user['username']}")
+        self.balancelabel = Text(self.screen, 5, 35, f"Balance:{user['balance']}")
+        self.game = TestBlackJack(self.screen, self.hand1, self.dealer_hand, user["username"],  user["balance"])
 
         self.click = False
         self.running = True
@@ -56,6 +58,8 @@ class BlackJackGame:
         self.screen.fill(BG_COLOR)
         # screen.fill always in beginning of draw func
         self.screen.blit(self.bj_table, (0, 0))
+        self.usernamelabel.draw()
+        self.balancelabel.draw()
         #bank/bet area background
         pygame.draw.rect(self.screen, (65, 86, 127), pygame.Rect(640, 390, 300, 200))
         #pygame.draw.rect(self.screen, (65, 86, 127), pygame.Rect(self.width/2 + 190, self.height/2 + 50, 210, 50))
@@ -67,6 +71,8 @@ class BlackJackGame:
         self.chip1.draw()
         self.current_bet1.draw()
         self.game.draw()
+
+
         #self.hand1.draw()
         if not self.game.done_betting:
             self.button1.draw()
@@ -122,8 +128,15 @@ class BlackJackGame:
                     text = self.game.addBet(5)
                     self.current_bet1.setText(text)
 
+
+            self.balancelabel.setText(f"Balance: {self.game.getBalance()}")
             if self.button1.collides(pos) and self.click and self.game.ready_to_start_round:
                 self.game.startRoundDeal()
+                value1 = self.hand1.evaluateHand()
+
+                if value1 == 21:
+                    text = self.game.stand()
+                    self.status_text.setText("BLACKJACK!")
 
             if self.hit.collides(pos) and self.click:
                 self.game.hit()

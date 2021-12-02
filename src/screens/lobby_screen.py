@@ -5,7 +5,7 @@ BG_COLOR = (30, 30, 30)
 BLACK_COLOR = (0, 0, 0)
 
 class LobbyScreen:
-    def __init__(self):
+    def __init__(self, user):
         self.width = 600
         self.height = 600
         
@@ -17,11 +17,11 @@ class LobbyScreen:
         self.play_button = Button(self.screen, self.width//2 - 100, self.height//2 - 75, 200, 50, "Play Game", BLACK_COLOR)
         self.lobby_button = Button(self.screen, self.width // 2 - 100, self.height // 2 - 25, 200, 50, "lobby",BLACK_COLOR)
         self.clock = pygame.time.Clock()
-
+        self.user = user
 
     def draw(self):
         self.screen.fill(BG_COLOR)
-        # screen.fill always in beggining of draw func
+        # screen.fill always in beginning of draw func
         self.play_button.draw()
         self.lobby_button.draw()
         # display.update() always in end of draw func
@@ -39,7 +39,7 @@ class LobbyScreen:
             if self.play_button.collides(pos):
                 if self.click:
                     print("BUTTON CLICKED")
-                    blackjack_game = BlackJackGame()
+                    blackjack_game = BlackJackGame(self.user)
                     blackjack_game.run()
                     #stats = blackjack_game.stats()
                     #stats_screen = StatsScreen(stats)
