@@ -109,9 +109,9 @@ class TestBlackJack:
         self.stand_check = False
         self.bet = 0
         self.ended = False
-        #if self.deck.total_cards < 5:
-        #    print("Shuffling...")
-        #    self.deck = DeckComponent(self.screen, 240, 30)
+        if self.deck.total_cards < 5:
+            print("Shuffling...")
+            self.deck = DeckComponent(self.screen, 240, 30)
 
     def getBalance(self):
         return self.balance
