@@ -54,6 +54,9 @@ class DeckComponent:
         self.total_cards -= 1
         return temp
 
+    def total_cards(self):
+        return self.total_cards
+
 
 
 
