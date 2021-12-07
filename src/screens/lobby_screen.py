@@ -1,14 +1,20 @@
 import pygame, sys
 from buttons.button import Button
 from screens.blackjackGame_screen import BlackJackGame
+from pygame import mixer
 BG_COLOR = (30, 30, 30)
 BLACK_COLOR = (0, 0, 0)
-
+import os
 class LobbyScreen:
     def __init__(self, user):
         self.width = 600
         self.height = 600
-        
+        #12 - 14 and 4 to add sound anywhere. Just know where and what you want. so far mp3 works
+        mixer.init()
+        print(os.getcwd())
+        mixer.music.load("sound_effects/login_sound.mp3")
+        mixer.music.set_volume(1) #0- 1+ above one should be louder
+        mixer.music.play()
         self.setup_screen()
 
         self.click = False
@@ -34,7 +40,7 @@ class LobbyScreen:
     def run(self):
         while self.running: 
             pos = pygame.mouse.get_pos()
-            print(pos)
+            #print(pos)
             self.draw()
             if self.play_button.collides(pos):
                 if self.click:

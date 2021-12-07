@@ -34,7 +34,7 @@ class AuthScreen:
 
     def setup_screen(self):
         self.screen = pygame.display.set_mode((self.width, self.height))
-        pygame.display.set_caption("Blank Template Screen")
+        pygame.display.set_caption("LOBBY")
 
     def run(self):
         while self.running: 

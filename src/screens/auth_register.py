@@ -4,6 +4,7 @@ from components.register_form import RegisterForm
 from screens.auth_login import LoginScreen
 from buttons.text import Text
 from buttons.image_button import ImageButton
+from pygame import mixer #for sound
 BG_COLOR = (28, 170, 156)
 
 BLACK_COLOR = (0, 0, 0)
@@ -12,7 +13,12 @@ class RegisterScreen:
     def __init__(self):
         self.width = 600
         self.height = 600
-        
+        # 17 - 20 and 7 to add sound anywhere. Just know where and what you want. so far mp3 works
+        mixer.init()
+        mixer.music.load("sound_effects/register_sound.mp3")
+        mixer.music.set_volume(5)  # 0- 1+ above one should be louder
+        mixer.music.play()
+
         self.setup_screen()
         self.register_image = ImageButton(self.screen, 100, 100, "assets/register_image.png", 0.5)
         self.login_form = RegisterForm(self.screen, 50, 300, 200, 45)
@@ -52,6 +58,7 @@ class RegisterScreen:
             print(pos)
             self.draw()
             if self.go_back.collides(pos) and self.click:
+                mixer.music.stop()
                 self.running = False
 
             self.click = False
@@ -68,7 +75,9 @@ class RegisterScreen:
             status = self.user_object["status"]
             self.status_label.setText(status)
 
+
         if "success" in self.user_object:
+            mixer.music.stop()
             main_screen = LoginScreen()
             main_screen.run()
 
@@ -78,6 +87,7 @@ class RegisterScreen:
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
+                mixer.music.stop()
                 self.running = False
 
         if event.type == pygame.QUIT:

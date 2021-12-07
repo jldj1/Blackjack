@@ -91,7 +91,7 @@ class BlackJackGame:
 
     def setup_screen(self):
         self.screen = pygame.display.set_mode((self.width, self.height))
-        pygame.display.set_caption("Blank Template Screen")
+        pygame.display.set_caption("BLACKJACK TABLE")
 
     def run(self):
         while self.running: 
