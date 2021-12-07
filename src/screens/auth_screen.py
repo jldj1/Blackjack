@@ -2,6 +2,7 @@ import pygame, sys
 from buttons.button import Button
 from screens.auth_login import LoginScreen
 from screens.auth_register import RegisterScreen
+from buttons.image_button import ImageButton
 
 BG_COLOR = (28, 170, 156)
 BLACK_COLOR = (0, 0, 0)
@@ -12,23 +13,25 @@ class AuthScreen:
         self.height = 600
         
         self.setup_screen()
-
+        self.image = ImageButton(self.screen,14, 12,"assets/main_image.png",.8)
         self.click = False
         self.running = True
         # self, screen, x, y, width, height, text="", color=(DARK_GREY)
         padding = 60
-        self.login_button = Button(self.screen, self.width // 2 - 100, self.height // 2 - 25, 200, 50, "Login", BLACK_COLOR)
-        self.register_button = Button(self.screen, self.width // 2 - 100, self.height // 2 - 25 + padding, 200, 50, "Register", BLACK_COLOR)
-        self.exit_button = Button(self.screen, self.width//2 - 100, self.height//2 - 25 + (padding * 2), 200, 50, "Exit", BLACK_COLOR)
+        self.login_button = Button(self.screen, 200, 335, 200, 50, "Login", BLACK_COLOR)
+        self.register_button = Button(self.screen, 200, 395, 200, 50, "Register", BLACK_COLOR)
+        self.exit_button = Button(self.screen, 200, 455, 200, 50, "Exit", BLACK_COLOR)
         self.clock = pygame.time.Clock()
 
 
     def draw(self):
         self.screen.fill(BG_COLOR)
-        # screen.fill always in beggining of draw func
+        # screen.fill always in beginning of draw func
+        self.image.draw()
         self.exit_button.draw()
         self.register_button.draw()
         self.login_button.draw()
+
         # display.update() always in end of draw func
         pygame.display.update()
 
