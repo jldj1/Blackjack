@@ -44,6 +44,7 @@ class DeckComponent:
                 temp_deck.append(temp_card)
 
         random.shuffle(temp_deck)
+        self.total_cards = len(temp_deck)
         return temp_deck
 
     def draw(self):

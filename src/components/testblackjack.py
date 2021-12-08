@@ -24,6 +24,8 @@ class TestBlackJack:
         self.deck.draw()
 
     def addBet(self, bet):
+        if self.started:
+            return f"Current bet: {self.bet}"
         #temp bet 200 + 100
         #balance: 100
         # 100 - 300
@@ -91,7 +93,7 @@ class TestBlackJack:
         self.dealPlayer(1)
 
     def startRoundDeal(self):
-        if not self.ready_to_start_round:
+        if not self.ready_to_start_round or self.started:
             return
         self.dealDealer(2)
         self.dealPlayer(2)
@@ -109,9 +111,9 @@ class TestBlackJack:
         self.stand_check = False
         self.bet = 0
         self.ended = False
-        if self.deck.total_cards < 5:
+        if len(self.deck.deck) < 15:
             print("Shuffling...")
-            self.deck = DeckComponent(self.screen, 240, 30)
+            self.deck.deck = self.deck.createDeck()
 
     def getBalance(self):
         return self.balance
